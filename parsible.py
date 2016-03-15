@@ -71,7 +71,11 @@ class Parsible(object):
 
     def load_file(self):
         try:
-            self.log_file = open(self.input_file)
+            if str(input_file[-3:]) == '.gz':
+                import gzip
+                self.log_file =  gzip.open(self.input_file, 'rb')
+            else:
+                self.log_file = open(self.input_file)
         except IOError:
             print "Unable to open log file"
             self.parsible_exit(1)
